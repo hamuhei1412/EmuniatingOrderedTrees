@@ -67,6 +67,7 @@ int main(){
     EmuniatingOrderdTrees Emuniating(n, k);
     tdzdd::DdStructure<2> dd(Emuniating);
     long long ans = dd.evaluate(Counting());
-    std::cout<<dd.size()<<std::endl;
-    dd.dumpDot();
+    std::cout<<"answer:"<<ans<<std::endl;
+    std::cout<<"zdd size:"<<dd.size()<<std::endl;
+    //dd.dumpDot();
 }
