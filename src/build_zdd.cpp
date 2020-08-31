@@ -59,15 +59,18 @@ public:
         v = values.get(0) + values.get(1);
     }
 };
-
-
-int main(){
-    int n, k;
-    std::cin >> n >> k;
+void solve(int n, int k){
     EmuniatingOrderdTrees Emuniating(n, k);
     tdzdd::DdStructure<2> dd(Emuniating);
     long long ans = dd.evaluate(Counting());
     std::cout<<"answer:"<<ans<<std::endl;
     std::cout<<"zdd size:"<<dd.size()<<std::endl;
     //dd.dumpDot();
+}
+
+
+int main(){
+    int n, k;
+    std::cin >> n >> k;
+    solve(n, k);
 }
