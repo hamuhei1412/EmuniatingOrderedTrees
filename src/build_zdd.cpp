@@ -5,6 +5,9 @@
 #include "../../TdZdd/include/tdzdd/DdStructure.hpp"
 #include "../../TdZdd/include/tdzdd/DdEval.hpp"
 
+#include <boost/multiprecision/cpp_int.hpp>
+
+
 class EmuniatingOrderdTrees: public tdzdd::PodArrayDdSpec<EmuniatingOrderdTrees, short, 2>{
     int const n, k, edge_num;
     std::vector<std::pair<int, int>> Edge;
@@ -49,26 +52,29 @@ public:
     }
 };
 
-class Counting: public tdzdd::DdEval<Counting, long long>{
+namespace mp = boost::multiprecision;
+
+class Counting: public tdzdd::DdEval<Counting, mp::cpp_int>{
 public:
-    void evalTerminal(long long& v, int id){
+    void evalTerminal(mp::cpp_int& v, int id){
         v = id;
     }
 
-    void evalNode(long long& v, int level, tdzdd::DdValues<long long, 2> const& values) const{
+    void evalNode(mp::cpp_int& v, int level, tdzdd::DdValues<mp::cpp_int, 2> const& values) const{
         v = values.get(0) + values.get(1);
     }
 };
+
 void solve(int n, int k){
-    clock_t start = clock();
+    //clock_t start = clock();
     EmuniatingOrderdTrees Emuniating(n, k);
     tdzdd::DdStructure<2> dd(Emuniating);
-    clock_t stop = clock();
-    //long long ans = dd.evaluate(Counting());
+    //clock_t stop = clock();
+    mp::cpp_int ans = dd.evaluate(Counting());
     //std::cout<<"n = "<<n<<" k = "<<k<<std::endl;
-    //std::cout<<ans<<std::endl;
+    std::cout<<n<<":"<<ans<<std::endl;
     //std::cout<<n<<" "<<dd.size()<<std::endl;
-    std::cout<<n<<" "<<static_cast<double>(stop - start) / CLOCKS_PER_SEC * 1000.0<<std::endl;;
+    //std::cout<<n<<" "<<static_cast<double>(stop - start) / CLOCKS_PER_SEC * 1000.0<<std::endl;;
     //dd.dumpDot();
 }
 
