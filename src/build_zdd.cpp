@@ -74,8 +74,8 @@ void solve(int n, int k){
     //mp::cpp_int ans = dd.evaluate(Counting());
     //std::cout<<"n = "<<n<<" k = "<<k<<std::endl;
     //std::cout<<n<<":"<<ans<<std::endl;
-    //std::cout<<n<<" "<<dd.size()<<std::endl;
-    std::cout<<static_cast<double>(stop - start) / CLOCKS_PER_SEC * 1000.0<<std::endl;;
+    std::cout<<dd.size()<<std::endl;
+    //std::cout<<static_cast<double>(stop - start) / CLOCKS_PER_SEC * 1000.0<<std::endl;;
     //dd.dumpDot();
 }
 
