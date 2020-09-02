@@ -70,19 +70,18 @@ void solve(int n, int k){
     EmuniatingOrderdTrees Emuniating(n, k);
     tdzdd::DdStructure<2> dd(Emuniating);
     //clock_t stop = clock();
-    mp::cpp_int ans = dd.evaluate(Counting());
+    //mp::cpp_int ans = dd.evaluate(Counting());
     //std::cout<<"n = "<<n<<" k = "<<k<<std::endl;
-    std::cout<<n<<":"<<ans<<std::endl;
-    //std::cout<<n<<" "<<dd.size()<<std::endl;
+    //std::cout<<n<<":"<<ans<<std::endl;
+    dd.zddReduce();
+    std::cout<<n<<" "<<dd.size()<<std::endl;
     //std::cout<<n<<" "<<static_cast<double>(stop - start) / CLOCKS_PER_SEC * 1000.0<<std::endl;;
-    //dd.dumpDot();
+    dd.dumpDot();
 }
 
 
 int main(){
-    int k;
-    std::cin >> k;
-    for(int i = 0;i < 150;i++){
-        solve(i + 1, k);
-    }
+    int n;
+    std::cin >> n;
+    solve(n, n);
 }
