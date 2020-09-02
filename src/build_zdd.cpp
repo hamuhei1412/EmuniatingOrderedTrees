@@ -66,22 +66,24 @@ public:
 };
 
 void solve(int n, int k){
-    //clock_t start = clock();
+    clock_t start = clock();
     EmuniatingOrderdTrees Emuniating(n, k);
     tdzdd::DdStructure<2> dd(Emuniating);
-    //clock_t stop = clock();
+    dd.zddReduce();
+    clock_t stop = clock();
     //mp::cpp_int ans = dd.evaluate(Counting());
     //std::cout<<"n = "<<n<<" k = "<<k<<std::endl;
     //std::cout<<n<<":"<<ans<<std::endl;
-    dd.zddReduce();
-    std::cout<<n<<" "<<dd.size()<<std::endl;
-    //std::cout<<n<<" "<<static_cast<double>(stop - start) / CLOCKS_PER_SEC * 1000.0<<std::endl;;
-    dd.dumpDot();
+    //std::cout<<n<<" "<<dd.size()<<std::endl;
+    std::cout<<static_cast<double>(stop - start) / CLOCKS_PER_SEC * 1000.0<<std::endl;;
+    //dd.dumpDot();
 }
 
 
 int main(){
-    int n;
-    std::cin >> n;
-    solve(n, n);
+    int k;
+    std::cin >> k;
+    for(int i = 1;i <= 150;i++){
+        solve(i, k);
+    }
 }
