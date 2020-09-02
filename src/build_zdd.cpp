@@ -60,21 +60,23 @@ public:
     }
 };
 void solve(int n, int k){
-    //clock_t start = clock();
+    clock_t start = clock();
     EmuniatingOrderdTrees Emuniating(n, k);
     tdzdd::DdStructure<2> dd(Emuniating);
-    //clock_t stop = clock();
+    clock_t stop = clock();
     //long long ans = dd.evaluate(Counting());
     //std::cout<<"n = "<<n<<" k = "<<k<<std::endl;
-    //std::cout<<"answer:"<<ans<<std::endl;
-    //std::cout<<"k = "<<k<<", zdd size:"<<dd.size()<<std::endl;
-    //std::cout<<"k = "<<k<<", times = " <<static_cast<double>(stop - start) / CLOCKS_PER_SEC * 1000.0<<"[ms]"<<std::endl;;
+    //std::cout<<ans<<std::endl;
+    //std::cout<<n<<" "<<dd.size()<<std::endl;
+    std::cout<<n<<" "<<static_cast<double>(stop - start) / CLOCKS_PER_SEC * 1000.0<<std::endl;;
     //dd.dumpDot();
 }
 
 
 int main(){
-    for(int i = 0;i < 100;i++){
-        solve(100, i + 1);
+    int k;
+    std::cin >> k;
+    for(int i = 0;i < 150;i++){
+        solve(i + 1, k);
     }
 }
