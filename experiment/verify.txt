@@ -1,0 +1,42 @@
+/*k = nの場合でのverify*/
+n = 1 k = 1
+answer:0
+n = 2 k = 2
+answer:1
+n = 3 k = 3
+answer:2
+n = 4 k = 4
+answer:5
+n = 5 k = 5
+answer:14
+n = 6 k = 6
+answer:42
+n = 7 k = 7
+answer:132
+n = 8 k = 8
+answer:429
+n = 9 k = 9
+answer:1430
+n = 10 k = 10
+answer:4862
+n = 11 k = 11
+answer:16796
+n = 12 k = 12
+answer:58786
+n = 13 k = 13
+answer:208012
+n = 14 k = 14
+answer:742900
+n = 15 k = 15
+answer:2674440
+n = 16 k = 16
+answer:9694845
+n = 17 k = 17
+answer:35357670
+n = 18 k = 18
+answer:129644790
+n = 19 k = 19
+answer:477638700
+zdd size:5849
+n = 20 k = 20
+answer:1767263190
