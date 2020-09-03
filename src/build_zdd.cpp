@@ -42,8 +42,18 @@ public:
                 return -1;
             }
         }
+
         if(e.second == n - 1){
             state[e.first] = -1;
+        }
+        if(take == 0){
+            if((state[e.first] != -1 && state[e.second] != -1 || state[e.second - 1] == -1 || state[e.first] == k) && level != 0){
+                do {
+                    level--;
+                    e = Edge[edge_num - level];
+                }while(!(state[e.first] != -1 && state[e.second] != -1 || state[e.second - 1] == -1 || state[e.first] == k) && level != 0);
+                return level;
+            }
         }
         return level - 1;
     }
@@ -59,24 +69,27 @@ public:
         v = values.get(0) + values.get(1);
     }
 };
+
 void solve(int n, int k){
     clock_t start = clock();
     EmuniatingOrderdTrees Emuniating(n, k);
     tdzdd::DdStructure<2> dd(Emuniating);
     clock_t stop = clock();
-    //long long ans = dd.evaluate(Counting());
+    long long ans = dd.evaluate(Counting());
     //std::cout<<"n = "<<n<<" k = "<<k<<std::endl;
     //std::cout<<ans<<std::endl;
-    //std::cout<<n<<" "<<dd.size()<<std::endl;
-    std::cout<<n<<" "<<static_cast<double>(stop - start) / CLOCKS_PER_SEC * 1000.0<<std::endl;;
+    std::cout<<n<<":"<<dd.size()<<std::endl;
+    //std::cout<<n<<" "<<static_cast<double>(stop - start) / CLOCKS_PER_SEC * 1000.0<<std::endl;;
     //dd.dumpDot();
 }
 
 
 int main(){
-    int k;
-    std::cin >> k;
+    /*
+    int n, k;
+    std::cin >> n >> k;
+    */
     for(int i = 0;i < 150;i++){
-        solve(i + 1, k);
+        solve(i + 1, i + 1);
     }
 }
