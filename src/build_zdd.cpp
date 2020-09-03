@@ -43,18 +43,15 @@ public:
             }
             return level - 1;
         }else{
-            if(level != 1){
-                do {
-                    if(e.second == n - 1){
-                        state[e.first] = -1;
-                    }
-                    level--;
-                    e = Edge[edge_num - level];
-                }while((state[e.first] != -1 && state[e.second] != -1 || state[e.second - 1] == -1 || state[e.first] == k) && level != 1);
-                return level;
-            }else{
-                return 0;
-            }
+            do {
+                if(e.second == n - 1){
+                    state[e.first] = -1;
+                }
+                level--;
+                if(level == 0)return 0;
+                e = Edge[edge_num - level];
+            }while((state[e.first] != -1 && state[e.second] != -1 || state[e.second - 1] == -1 || state[e.first] == k));
+            return level;
         }
     }
 };
@@ -86,7 +83,7 @@ void solve(int n, int k){
 
 int main(){
     
-    int n, k;
+    int k;
     std::cin >> k;
     for(int i = 0;i < 150;i++){
         solve(i + 1, k);
