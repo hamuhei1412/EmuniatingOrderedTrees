@@ -5,6 +5,8 @@
 #include "../../TdZdd/include/tdzdd/DdStructure.hpp"
 #include "../../TdZdd/include/tdzdd/DdEval.hpp"
 
+bool is_reduction = true;
+
 class EmuniatingOrderdTrees: public tdzdd::PodArrayDdSpec<EmuniatingOrderdTrees, short, 2>{
     int const n, k, edge_num;
     std::vector<std::pair<int, int>> Edge;
@@ -43,16 +45,22 @@ public:
             }
             return level - 1;
         }else{
-            do {
-                if(e.second == n - 1){
-                    state[e.first] = -1;
-                }
-                level--;
-                if(level == 0)return 0;
-                e = Edge[edge_num - level];
-            }while((state[e.first] != -1 && state[e.second] != -1 || state[e.second - 1] == -1 || state[e.first] == k));
-            return level;
+            if(is_reduction){
+                do {
+                    if(e.second == n - 1){
+                        state[e.first] = -1;
+                    }
+                    level--;
+                    if(level == 0)return 0;
+                    e = Edge[edge_num - level];
+                }while((state[e.first] != -1 && state[e.second] != -1 || state[e.second - 1] == -1 || state[e.first] == k));
+                return level;
+            }
         }
+        if(e.second == n - 1){
+            state[e.first] = -1;
+        }
+        return level - 1;
     }
 };
 
