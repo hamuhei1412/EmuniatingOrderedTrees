@@ -5,6 +5,8 @@
 #include "../../TdZdd/include/tdzdd/DdStructure.hpp"
 #include "../../TdZdd/include/tdzdd/DdEval.hpp"
 
+bool is_reduction = true;
+
 class EmuniatingOrderdTrees: public tdzdd::PodArrayDdSpec<EmuniatingOrderdTrees, short, 2>{
     int const n, k, edge_num;
     std::vector<std::pair<int, int>> Edge;
@@ -41,6 +43,19 @@ public:
             if(e.second == n - 1){
                 return -1;
             }
+            return level - 1;
+        }else{
+            if(is_reduction){
+                do {
+                    if(e.second == n - 1){
+                        state[e.first] = -1;
+                    }
+                    level--;
+                    if(level == 0)return 0;
+                    e = Edge[edge_num - level];
+                }while((state[e.first] != -1 && state[e.second] != -1 || state[e.second - 1] == -1 || state[e.first] == k));
+                return level;
+            }
         }
         if(e.second == n - 1){
             state[e.first] = -1;
@@ -59,21 +74,23 @@ public:
         v = values.get(0) + values.get(1);
     }
 };
+
 void solve(int n, int k){
     clock_t start = clock();
     EmuniatingOrderdTrees Emuniating(n, k);
     tdzdd::DdStructure<2> dd(Emuniating);
     clock_t stop = clock();
-    //long long ans = dd.evaluate(Counting());
+    long long ans = dd.evaluate(Counting());
     //std::cout<<"n = "<<n<<" k = "<<k<<std::endl;
-    //std::cout<<ans<<std::endl;
-    //std::cout<<n<<" "<<dd.size()<<std::endl;
-    std::cout<<n<<" "<<static_cast<double>(stop - start) / CLOCKS_PER_SEC * 1000.0<<std::endl;;
+    std::cout<<n<<":"<<ans<<std::endl;
+    //std::cout<<n<<":"<<dd.size()<<std::endl;
+    //std::cout<<n<<" "<<static_cast<double>(stop - start) / CLOCKS_PER_SEC * 1000.0<<std::endl;;
     //dd.dumpDot();
 }
 
 
 int main(){
+    
     int k;
     std::cin >> k;
     for(int i = 0;i < 150;i++){
