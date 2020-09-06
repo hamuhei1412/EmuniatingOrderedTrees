@@ -1,9 +1,14 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <utility>
 #include "../../TdZdd/include/tdzdd/DdSpec.hpp"
 #include "../../TdZdd/include/tdzdd/DdStructure.hpp"
 #include "../../TdZdd/include/tdzdd/DdEval.hpp"
+
+#include <boost/multiprecision/cpp_int.hpp>
+#include <boost/multiprecision/cpp_dec_float.hpp>
+
 
 bool is_reduction = true;
 
@@ -64,13 +69,17 @@ public:
     }
 };
 
-class Counting: public tdzdd::DdEval<Counting, long long>{
+namespace mp = boost::multiprecision;
+std::vector<int> size_of_level;
+
+class Counting: public tdzdd::DdEval<Counting, mp::cpp_int>{
 public:
-    void evalTerminal(long long& v, int id){
+    void evalTerminal(mp::cpp_int& v, int id){
         v = id;
     }
 
-    void evalNode(long long& v, int level, tdzdd::DdValues<long long, 2> const& values) const{
+    void evalNode(mp::cpp_int& v, int level, tdzdd::DdValues<mp::cpp_int, 2> const& values) const{
+        size_of_level[level]++;
         v = values.get(0) + values.get(1);
     }
 };
@@ -79,10 +88,22 @@ void solve(int n, int k){
     clock_t start = clock();
     EmuniatingOrderdTrees Emuniating(n, k);
     tdzdd::DdStructure<2> dd(Emuniating);
+    dd.zddReduce();
     clock_t stop = clock();
-    long long ans = dd.evaluate(Counting());
+
+    size_of_level = std::vector<int>(n * (n - 1) / 2 + 1);
+
+    mp::cpp_int ans = dd.evaluate(Counting());
+
+    int max = *std::max_element(size_of_level.begin(), size_of_level.end());
+    
+    if(ans == 0)ans = 1;
+    mp::cpp_dec_float_100 compressibility = (mp::cpp_dec_float_100)max / (mp::cpp_dec_float_100)ans;
+
+    std::cout<<compressibility<<std::endl;
+    
     //std::cout<<"n = "<<n<<" k = "<<k<<std::endl;
-    std::cout<<n<<":"<<ans<<std::endl;
+    //std::cout<<n<<":"<<ans<<std::endl;
     //std::cout<<n<<":"<<dd.size()<<std::endl;
     //std::cout<<n<<" "<<static_cast<double>(stop - start) / CLOCKS_PER_SEC * 1000.0<<std::endl;;
     //dd.dumpDot();
@@ -90,10 +111,9 @@ void solve(int n, int k){
 
 
 int main(){
-    
     int k;
     std::cin >> k;
-    for(int i = 0;i < 150;i++){
-        solve(i + 1, k);
+    for(int i = 1;i <= 150;i++){
+        solve(i, k);
     }
 }
