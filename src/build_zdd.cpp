@@ -93,27 +93,20 @@ void solve(int n, int k){
 
     size_of_level = std::vector<int>(n * (n - 1) / 2 + 1);
 
-    mp::cpp_int ans = dd.evaluate(Counting());
+    //mp::cpp_int ans = dd.evaluate(Counting()); // 解の個数を求める関数
 
-    int max = *std::max_element(size_of_level.begin(), size_of_level.end());
+    //int max = *std::max_element(size_of_level.begin(), size_of_level.end()); // ZDDの幅(使うときはdd.evaluate(Counting())を読んでください)
     
-    if(ans == 0)ans = 1;
-    mp::cpp_dec_float_100 compressibility = (mp::cpp_dec_float_100)max / (mp::cpp_dec_float_100)ans;
-
-    std::cout<<compressibility<<std::endl;
+    //if(ans == 0)ans = 1;
+    //mp::cpp_dec_float_100 compressibility = (mp::cpp_dec_float_100)max / (mp::cpp_dec_float_100)ans; // 圧縮率
     
-    //std::cout<<"n = "<<n<<" k = "<<k<<std::endl;
-    //std::cout<<n<<":"<<ans<<std::endl;
-    //std::cout<<n<<":"<<dd.size()<<std::endl;
-    //std::cout<<n<<" "<<static_cast<double>(stop - start) / CLOCKS_PER_SEC * 1000.0<<std::endl;;
-    //dd.dumpDot();
+    //double build_times = static_cast<double>(stop - start) / CLOCKS_PER_SEC * 1000.0; // 構築時間 
+    //dd.dumpDot(); // 標準出力に構築したzddを.dot形式で出力
 }
 
 
 int main(){
-    int k;
-    std::cin >> k;
-    for(int i = 1;i <= 150;i++){
-        solve(i, k);
-    }
+    int n, k;
+    std::cin >> n >> k;
+    solve(n, k);
 }
