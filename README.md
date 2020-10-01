@@ -7,7 +7,7 @@
 また、フロンティア法を実装するためのライブラリである、[TdZDD](https://github.com/kunisura/TdZdd)を用いている。
 
 コードの中で、TdZDDに対するパスは、このディレクトリ(EmuniatingOrderedTrees)と同じ階層にあると仮定している。(相対パスで指定している。)
-src/build_zdd.cppをg++でビルドして、吐かれたバイナリに二つの整数n, kを渡してください。それぞれ、頂点数n、次数制約kである。
+src/build_zdd.cppをg++でビルドして、吐かれたバイナリに二つの整数n, kを渡すと、頂点数n、次数制約kであるようなZDDを構築する。
 
 ## 実験
 
