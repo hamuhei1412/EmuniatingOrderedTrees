@@ -8,7 +8,7 @@
 出力:頂点数nで、次数がk以下の頂点のみで構成される順序木を同型なものを除いて過不足なく表現するZDD
 
 動作には、g++とboostが必要である。
-また、フロンティア法を実装するためのライブラリである、[TdZDD](https://github.com/kunisura/TdZdd)を用いている。
+また、実装にはフロンティア法を実装するためのライブラリである[TdZDD](https://github.com/kunisura/TdZdd)を用いている。
 
 コードの中で、TdZDDに対するパスは、このディレクトリ(EmuniatingOrderedTrees)と同じ階層にあると仮定している。(相対パスで指定している。)
 
